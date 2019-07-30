@@ -101,10 +101,15 @@ class Keyboard_ : public Print
 private:
   KeyReport _keyReport;
   void sendReport(KeyReport* keys);
+  byte UTF;
+  char chArray[4];
+  int charZaeler;
+  const String _Layout;
 public:
   Keyboard_(void);
   void begin(void);
   void end(void);
+  void language(const String Layout);
   size_t write(uint8_t k);
   size_t write(const uint8_t *buffer, size_t size);
   size_t press(uint8_t k);
@@ -115,4 +120,3 @@ extern Keyboard_ Keyboard;
 
 #endif
 #endif
-
