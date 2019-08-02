@@ -13,6 +13,7 @@ Keyboard	KEYWORD1
 #######################################
 
 begin	KEYWORD2
+language	KEYWORD2
 write	KEYWORD2
 press	KEYWORD2
 release	KEYWORD2

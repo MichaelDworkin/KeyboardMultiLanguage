@@ -82,10 +82,6 @@
 #define KEY_F22       0xF9
 #define KEY_F23       0xFA
 #define KEY_F24       0xFB
-#define KEY_O_UMLAUT  0xBB
-#define KEY_A_UMLAUT  0xBC
-#define KEY_U_UMLAUT  0xB7
-#define KEY_ESZETT    0xB5
 
 
 //  Low level key report: up to 6 keys and shift, ctrl etc at once
@@ -107,8 +103,6 @@ private:
   const String _Layout;
 public:
   Keyboard_(void);
-  void begin(void);
-  void end(void);
   void language(const String Layout);
   size_t write(uint8_t k);
   size_t write(const uint8_t *buffer, size_t size);
