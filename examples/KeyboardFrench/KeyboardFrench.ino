@@ -10,7 +10,7 @@ void setup()
 {
 delay(4000);
 Keyboard.language(French);
-Keyboard.println("Les naïfs ægithales hâtifs pondant à Noël où il gèle sont sûrs d'être déçus en voyant leurs drôles d'œufs abîmés");
+Keyboard.println("Je peux manger du verre, ça ne me fait pas mal");
 }
 
 void loop() 
