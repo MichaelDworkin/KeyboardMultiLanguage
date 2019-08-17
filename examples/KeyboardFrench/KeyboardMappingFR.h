@@ -1,4 +1,4 @@
-const String French PROGMEM = R"=====(q
+const char French[] PROGMEM = R"=====(q
 b
 c
 d

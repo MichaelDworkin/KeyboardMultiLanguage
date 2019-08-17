@@ -1,1 +1,1 @@
-﻿const String Layout PROGMEM = R"=====()=====" ;
+﻿const char Layout[] PROGMEM = R"=====()=====" ;

@@ -100,10 +100,12 @@ private:
   byte UTF;
   char chArray[4];
   int charZaeler;
-  const String _Layout;
+  const char* _Layout;
+  boolean english;
 public:
   Keyboard_(void);
-  void language(const String Layout);
+  void language(const char Layout[]);
+  void language();
   size_t write(uint8_t k);
   size_t write(const uint8_t *buffer, size_t size);
   size_t press(uint8_t k);

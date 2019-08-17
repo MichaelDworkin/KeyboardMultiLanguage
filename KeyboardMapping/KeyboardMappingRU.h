@@ -1,4 +1,4 @@
-const String Russian PROGMEM = R"=====(ф
+const  char  Russian[] PROGMEM = R"=====(ф
 и
 с
 в

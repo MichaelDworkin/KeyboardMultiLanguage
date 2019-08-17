@@ -1,4 +1,4 @@
-const String English PROGMEM = R"=====(a
+const char English[] PROGMEM = R"=====(a
 b
 c
 d

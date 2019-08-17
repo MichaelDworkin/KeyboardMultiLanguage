@@ -1,4 +1,4 @@
-const String Hebrew PROGMEM = R"=====(ש
+const char Hebrew[] PROGMEM = R"=====(ש
 נ
 ב
 ג

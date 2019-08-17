@@ -1,4 +1,4 @@
-const String Georgian PROGMEM = R"=====(ა
+const char Georgian[] PROGMEM = R"=====(ა
 ბ
 ც
 დ

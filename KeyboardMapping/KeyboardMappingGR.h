@@ -1,4 +1,4 @@
-const String Greek PROGMEM = R"=====(α
+const char Greek[] PROGMEM = R"=====(α
 β
 ψ
 δ

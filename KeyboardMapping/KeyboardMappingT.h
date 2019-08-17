@@ -1,4 +1,4 @@
-const String Italian PROGMEM = R"=====(a
+const char Italian[] PROGMEM = R"=====(a
 b
 c
 d

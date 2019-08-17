@@ -67,12 +67,19 @@ Keyboard_::Keyboard_(void)
   HID().AppendDescriptor(&node);
   charZaeler = 0;
   UTF = 0;
+  english = true;
 }
 
 
-void Keyboard_::language(const String Layout)
+void Keyboard_::language(const char Layout[])
 {
-  _Layout = Layout;
+  _Layout= Layout;
+  english = false;
+}
+
+void Keyboard_::language()
+{
+  english = true;
 }
 
 void Keyboard_::sendReport(KeyReport* keys)
@@ -87,23 +94,23 @@ const uint8_t _asciimap[128] PROGMEM;
 //US
 const uint8_t _asciimap[128] =
 {
-  0x00,             // 0 NUL
-  0x00,             // 1 SOH
-  0x00,             // 2 STX
-  0x00,             // 3 ETX
-  0x00,             // 4 EOT
-  0x00,             // 5 ENQ
-  0x00,             // 6 ACK
-  0x00,             // 7 BEL
-  0x2a,			  // 8 BS	Backspace
-  0x2b,			  // 9 TAB	Tab
-  0x28,			  // A LF	Enter
-  0x00,             // B VT
-  0x00,             // C FF
-  0x00,             // D CR
-  0x00,             // E SO
-  0x00,             // F SI
-  0x00,             // 10 DEL
+  0x00,             // NUL
+  0x00,             // SOH
+  0x00,             // STX
+  0x00,             // ETX
+  0x00,             // EOT
+  0x00,             // ENQ
+  0x00,             // ACK
+  0x00,             // BEL
+  0x2a,     // BS Backspace
+  0x2b,     // TAB  Tab
+  0x28,     // LF Enter
+  0x00,             // VT
+  0x00,             // FF
+  0x00,             // CR
+  0x00,             // SO
+  0x00,             // SI
+  0x00,             // DEL
   0x00,             // DC1
   0x00,             // DC2
   0x00,             // DC3
@@ -113,30 +120,30 @@ const uint8_t _asciimap[128] =
   0x00,             // ETB
   0x00,             // CAN
   0x00,             // EM
-  0x00,             // 1A SUB
+  0x00,             // SUB
   0x00,             // ESC
   0x00,             // FS
   0x00,             // GS
   0x00,             // RS
   0x00,             // US
 
-  0x2c,		   // 20 ' '
-  0x1e | SHIFT,	 // 21 !
-  0x34 | SHIFT,	  // 22 "
-  0x20 | SHIFT,  // 23 #
-  0x21 | SHIFT,  // 24 $
-  0x22 | SHIFT,  // 25 %
-  0x24 | SHIFT,  // 26 &
-  0x34,          // 27 '
-  0x26 | SHIFT,  // 28 (
-  0x27 | SHIFT,  // 29 )
-  0x25 | SHIFT,  // 2A *
-  0x2e | SHIFT,  // 2B +
-  0x36,          // 2C ,
-  0x2d,          // 2D -
-  0x37,          // 2E .
-  0x38,          // 2F /
-  0x27,          // 30 0
+  0x2c,      //  ' '
+  0x1e | SHIFT,  // !
+  0x34 | SHIFT,  // "
+  0x20 | SHIFT,  // #
+  0x21 | SHIFT,  // $
+  0x22 | SHIFT,  // %
+  0x24 | SHIFT,  // &
+  0x34,          // '
+  0x26 | SHIFT,  // (
+  0x27 | SHIFT,  // )
+  0x25 | SHIFT,  // *
+  0x2e | SHIFT,  // +
+  0x36,          // ,
+  0x2d,          // -
+  0x37,          // .
+  0x38,          // /
+  0x27,          // 0
   0x1e,          // 1
   0x1f,          // 2
   0x20,          // 3
@@ -146,8 +153,8 @@ const uint8_t _asciimap[128] =
   0x24,          // 7
   0x25,          // 8
   0x26,          // 9
-  0x33 | SHIFT,    //3A :
-  0x33,          // 3B ; o Umlaut
+  0x33 | SHIFT,    // :
+  0x33,          // ;
   0x36 | SHIFT,    // <
   0x2e,          // =
   0x37 | SHIFT,    // >
@@ -189,7 +196,6 @@ const uint8_t _asciimap[128] =
   0x05,          // b
   0x06,          // c
   0x07,          // d
-
   0x08,          // e
   0x09,          // f
   0x0a,          // g
@@ -216,7 +222,7 @@ const uint8_t _asciimap[128] =
   0x31 | SHIFT,  // |
   0x30 | SHIFT,  // }
   0x35 | SHIFT,  // ~
-  0				// DEL
+  0       // DEL
 };
 
 
@@ -313,20 +319,26 @@ void Keyboard_::releaseAll(void)
   sendReport(&_keyReport);
 }
 
+
 size_t Keyboard_::write(uint8_t c)
 {
   uint8_t p;
   int KeyIndex = 0, modifikator = 0;
+  if (english)
+    {
+      p = press(c);  // Keydown
+      release(c);            // Keyup
+      return p;              // just return the result of press() since release() almost always returns 1
+    }
   if (c == '\n')
   {
     KeyIndex = 0x28;
-   p = press(KeyIndex + 136);  // Keydown
-   release(KeyIndex + 136);            // Keyup
-    
+    p = press(KeyIndex + 136);  // Keydown
+    release(KeyIndex + 136);            // Keyup
+
   }
   else
   {
-
     if (c >= 192 && UTF == 0 )UTF = c;
     if (UTF >= 192)              // Wenn UTF-8 zeichen
     {
@@ -341,13 +353,22 @@ size_t Keyboard_::write(uint8_t c)
       charZaeler++;
       chArray[charZaeler] = 0;                // chArray enthält UTF-8 Zeichen
       charZaeler = 0;
-      int j;
-      int k = _Layout.indexOf(String(chArray)); // Position des Zeichens in Layout String suchen
-
-      for (j = 0; j <= k; j++)   // Bis zu Position des Zeichens alle '\n' suchen
-      {
-        if (_Layout[j] == '\n') KeyIndex++; // Anzahl den '\n' entspricht den Key HID-Code
-      }
+      int j=0;
+    const char* str;  
+    str=_Layout;
+    char Zeichen;
+    while ((Zeichen = pgm_read_byte(str++))) // alle chars lesen
+  {
+    if (Zeichen == '\n') KeyIndex++;
+    if (Zeichen == chArray[j]) j++;
+    else j = 0;
+    if ( chArray[j]==0 && j>0 )
+    {
+      j = 0;
+      break;
+    }
+  }
+      
       modifikator = map(KeyIndex, 0, 147, 0, 3);
       KeyIndex = KeyIndex - (49 * modifikator);
       if (KeyIndex < 36)
