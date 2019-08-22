@@ -368,9 +368,8 @@ size_t Keyboard_::write(uint8_t c)
       break;
     }
   }
-      
-      modifikator = map(KeyIndex, 0, 147, 0, 3);
-      KeyIndex = KeyIndex - (49 * modifikator);
+      modifikator = map(KeyIndex, 0, 150, 0, 3);
+      KeyIndex = KeyIndex - (50 * modifikator);
       if (KeyIndex < 36)
       {
         KeyIndex = KeyIndex + 4;
@@ -380,6 +379,8 @@ size_t Keyboard_::write(uint8_t c)
         KeyIndex = KeyIndex + 8;
       }
     }
+    if (KeyIndex == 57 )KeyIndex=100; // <>| German Key
+    
     switch (modifikator)
     {
       case 0:
