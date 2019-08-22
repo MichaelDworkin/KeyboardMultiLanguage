@@ -1,4 +1,4 @@
-const char Georgian[] PROGMEM = R"=====(ა
+﻿const char Georgian[] PROGMEM = R"=====(ა
 ბ
 ც
 დ
@@ -47,6 +47,7 @@ const char Georgian[] PROGMEM = R"=====(ა
 ,
 .
 /
+\
 
 
 ჩ
@@ -96,6 +97,7 @@ _
 <
 >
 ?
+
 ჺ
 
 ©
@@ -145,4 +147,5 @@ _
 «
 »
 ჻
+
 )=====" ;
