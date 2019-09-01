@@ -10,7 +10,8 @@ void setup()
 {
 delay(4000);
 Keyboard.language(German);
-Keyboard.println("abc öÖäÄüÜ ß\nXYZ q@e€\\mµ");
+Keyboard.println("abc öÖäÄüÜ ß");
+Keyboard.println("XYZ q@e€mµ");
 Keyboard.println("Ich kann Glas essen, ohne mir zu schaden.");
 }
 
