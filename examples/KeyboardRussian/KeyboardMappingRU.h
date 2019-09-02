@@ -1,4 +1,4 @@
-const  char  Russian[] PROGMEM = R"=====(ф
+﻿const  char  Russian[] PROGMEM = R"=====(ф
 и
 с
 в
@@ -47,6 +47,7 @@ const  char  Russian[] PROGMEM = R"=====(ф
 б
 ю
 .
+\
 Ф
 И
 С
@@ -96,6 +97,7 @@ _
 Б
 Ю
 ,
+/
 
 
 
@@ -130,6 +132,7 @@ _
 
 
 ₽
+
 
 
 
