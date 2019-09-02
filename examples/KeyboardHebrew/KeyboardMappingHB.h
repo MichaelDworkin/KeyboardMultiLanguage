@@ -1,4 +1,4 @@
-const char Hebrew[] PROGMEM = R"=====(ש
+﻿const char Hebrew[] PROGMEM = R"=====(ש
 נ
 ב
 ג
@@ -47,6 +47,7 @@ const char Hebrew[] PROGMEM = R"=====(ש
 ת
 ץ
 .
+\
 A
 B
 C
@@ -96,6 +97,7 @@ _
 >
 <
 ?
+|
 ְ
 
 ֱ
@@ -145,4 +147,5 @@ _
 ’
 ‚
 ÷
+
 )=====" ;
